@@ -1,0 +1,49 @@
+@use '../utils/variables' as v;
+@use '../utils/mixins' as m;
+
+.footer {
+  position: absolute;
+  bottom: 0;
+
+  right: 0;
+
+  width: 100%;
+  padding-top: 29px;
+  padding-bottom: 30px;
+
+  text-align: center;
+  line-height: 2;
+
+  color: v.$footer-text-color;
+  background-color: v.$sec-color;
+
+  &__icon {
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding-top: 30px;
+    padding-bottom: 28px;
+
+    font-size: 16px;
+    line-height: 1.19;
+
+    &__icon {
+      margin-left: 10px;
+      margin-right: 10px;
+
+      &:hover {
+        transform: scale(1.25);
+      }
+
+      @include m.transition(transform);
+    }
+  }
+
+  &__link {
+    padding: 15px 0;
+    text-decoration: underline;
+    color: v.$footer-text-color;
+  }
+}

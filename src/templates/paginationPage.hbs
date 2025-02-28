@@ -1,0 +1,17 @@
+{{#if showPrev}}
+        <button class="btn-page previous" data-page="{{prevPage}}"> </button>
+    {{/if}}
+
+    {{#each pages}}
+        {{#if isDots}}
+            <button class="btn-page dots" disabled>...</button>
+        {{else}}
+            <button class="btn-page page {{#if isActive}}active{{/if}}" data-page="{{number}}">
+            {{number}}{{#if isDynamic}}+{{/if}}
+        </button>
+        {{/if}}
+    {{/each}}
+
+    {{#if showNext}}
+        <button class="btn-page next" data-page="{{nextPage}}"> </button>
+    {{/if}}

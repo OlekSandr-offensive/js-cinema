@@ -1,0 +1,13 @@
+@import url(d:\JavaScript\js-cinema\node_modules\modern-normalize\modern-normalize.css);
+@use './utils/base';
+@use './utils/mixins';
+@use './utils/variables';
+@use './utils//visually-hidden';
+@use './components/reused';
+@use './components/header';
+@use './components/container';
+@use './components/gallerry';
+@use './components/footer';
+@use './components/theme';
+@use './components/pagination';
+/*# sourceMappingURL=main.css.map */

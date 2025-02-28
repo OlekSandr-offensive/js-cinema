@@ -1,0 +1,83 @@
+@use '../utils/variables' as v;
+
+.pagination {
+  margin-bottom: 20px;
+  @media screen and (max-width: 767px) {
+    & {
+      padding: 0;
+    }
+  }
+}
+.pagination-style {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-page {
+  &:not(:last-child) {
+    margin-right: 15px;
+    @media screen and (max-width: 767px) {
+      & {
+        margin-right: auto;
+      }
+    }
+  }
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: v.$sec-font-weight;
+  font-size: v.$sec-font-size;
+  line-height: 16px;
+
+  width: 40px;
+  height: 40px;
+  background: v.$sec-color;
+  color: v.$main-text-color;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-page:hover {
+  transition: 1s;
+  background: v.$accent-color;
+  color: v.$main-white-color;
+  transform: scale(1.07);
+}
+
+.active {
+  background: v.$accent-color;
+  color: v.$main-white-color;
+}
+
+.pagination-arrow-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  fill: v.$main-text-color;
+}
+
+.previous::after {
+  display: inline-block;
+  content: '';
+  width: 24px;
+  height: 24px;
+  background-image: url(../images/arrow-right.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.next::after {
+  display: inline-block;
+  content: '';
+  width: 24px;
+  height: 24px;
+  background-image: url(../images/arrow-left.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

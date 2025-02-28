@@ -1,0 +1,33 @@
+{{#each movies}}
+  <li class='gallery-item-card' data-id='{{this.id}}'>
+    <div class='card'>
+      <div class='poster-container'>
+        <span class='film-rating'>{{round this.vote_average}}</span>
+        {{#if poster_path}}
+          <img
+            class='poster'
+            data-source='https://image.tmdb.org/t/p/w500{{this.backdrop_path}}'
+            alt='{{this.title}}'
+            src='https://image.tmdb.org/t/p/w500{{this.poster_path}}'
+          />
+        {{else}}
+          <img
+            src='https://cdn.pixabay.com/photo/2015/09/09/17/51/film-932154_960_720.jpg'
+            alt='{{original_title}}'
+          />
+
+        {{/if}}
+      </div>
+      <div class='text-container'>
+        <h2 class='text-title'>{{this.title}}</h2>
+        <div class='text-details'>
+          <p class='text-ganre'>{{getGenreNames this.genre_ids}}
+            |
+            {{slice this.release_date}}</p>
+          <p class='text-rating is-hidden'>{{this.vote_average}}</p>
+        </div>
+      </div>
+      {{! <button type='button' class='btnremove'>X</button> }}
+    </div>
+  </li>
+{{/each}}

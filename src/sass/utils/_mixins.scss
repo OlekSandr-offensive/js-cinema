@@ -1,0 +1,13 @@
+@use '../utils/variables' as v;
+@use 'sass:list';
+
+@mixin transition($properties...) {
+  & {
+    transition: v.$changes;
+  }
+  @if list.length($properties) > 0 {
+    & {
+      transition-property: $properties;
+    }
+  }
+}
