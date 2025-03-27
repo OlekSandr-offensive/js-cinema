@@ -1,30 +1,30 @@
 {{#each movies}}
-  <li class='gallery-item-card' data-id='{{this.id}}'>
+  <li class='gallery-item-card' data-id='{{id}}'>
     <div class='card'>
       <div class='poster-container'>
-        <span class='film-rating'>{{round this.vote_average}}</span>
-        {{#if poster_path}}
+        <span class='film-rating'>{{rating}}</span>
+        {{#if poster}}
           <img
             class='poster'
-            data-source='https://image.tmdb.org/t/p/w500{{this.backdrop_path}}'
-            alt='{{this.title}}'
-            src='https://image.tmdb.org/t/p/w500{{this.poster_path}}'
+            data-source='https://image.tmdb.org/t/p/w500{{backdropPath}}'
+            alt='{{title}}'
+            src='https://image.tmdb.org/t/p/w500{{poster}}'
           />
         {{else}}
           <img
             src='https://cdn.pixabay.com/photo/2015/09/09/17/51/film-932154_960_720.jpg'
-            alt='{{original_title}}'
+            alt='{{originalTitle}}'
           />
 
         {{/if}}
       </div>
       <div class='text-container'>
-        <h2 class='text-title'>{{this.title}}</h2>
+        <h2 class='text-title'>{{title}}</h2>
         <div class='text-details'>
-          <p class='text-ganre'>{{getGenreNames this.genre_ids}}
+          <p class='text-ganre'>{{genres}}
             |
-            {{slice this.release_date}}</p>
-          <p class='text-rating is-hidden'>{{this.vote_average}}</p>
+            {{releaseDate}}</p>
+          <p class='text-rating is-hidden'>{{rating}}</p>
         </div>
       </div>
       {{! <button type='button' class='btnremove'>X</button> }}

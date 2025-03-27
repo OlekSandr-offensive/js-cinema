@@ -1,4 +1,4 @@
-import getRefs from '../utils/getRefs';
+import { getRefs } from '../utils';
 
 const refs = getRefs();
 

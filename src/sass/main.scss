@@ -8,8 +8,13 @@
 @use './components/container';
 @use './components/gallerry';
 @use './components/footer';
+@use './components/modalMovieDetails';
+@use './components/authForm';
+@use './components/signUpForm';
+@use './components/urlWithError';
 
 @use './components/theme';
 @use './components/pagination';
+@use './components/toTop';
 
 @import '../../node_modules/modern-normalize/modern-normalize.css';

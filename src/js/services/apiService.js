@@ -56,3 +56,12 @@ export async function searchMovies(query, page = 1) {
     Notiflix.Notify.failure('Failed to load movies. Please try again.');
   }
 }
+
+export async function getMovieDetails(movieId) {
+  try {
+    const response = await api.get(`/movie/${movieId}`);
+    return response.data;
+  } catch (error) {
+    Notiflix.Notify.failure('Failed to load movie details. Please try again.');
+  }
+}

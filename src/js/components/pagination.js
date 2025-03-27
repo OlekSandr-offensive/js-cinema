@@ -1,81 +1,57 @@
 import paginationPage from 'bundle-text:../../templates/paginationPage.hbs';
-import Handlebars from 'handlebars';
-import getRefs from '../utils/getRefs';
+import {
+  getPaginationContext,
+  renderTemplate,
+  getRefs,
+  fetchMovies,
+} from '../utils';
+import { state } from '../state';
+import { homeView } from '../views/homeView';
 
 const refs = getRefs();
 
-const paginationPageTemplate = Handlebars.compile(paginationPage);
-function getPaginationContext(currentPage, totalPages, isMobile = false) {
-  const delta = 2;
-  const pages = [];
-  const API_PAGE_LIMIT = 500;
-
-  const maxPage = Math.min(totalPages, API_PAGE_LIMIT);
-  if (currentPage < 1) {
-    currentPage = 1;
-  } else if (currentPage > maxPage) {
-    currentPage = maxPage;
-  }
-
-  const left = Math.max(2, currentPage - delta);
-  const right = Math.min(maxPage - 1, currentPage + delta);
-
-  if (isMobile) {
-    let left = currentPage - delta;
-    let right = currentPage + delta;
-
-    if (left < 1) {
-      left = 1;
-      right = Math.min(maxPage, left + 4);
-    }
-    if (right > maxPage) {
-      right = maxPage;
-      left = Math.max(1, right - 4);
-    }
-    for (let i = left; i <= right; i++) {
-      pages.push({ number: i, isActive: i === currentPage });
-    }
-  } else {
-    pages.push({ number: 1, isActive: currentPage === 1 });
-
-    if (left > 2) {
-      pages.push({ isDots: true });
-    }
-
-    for (let i = left; i <= right; i++) {
-      pages.push({ number: i, isActive: i === currentPage });
-    }
-
-    if (right < maxPage - 1) {
-      pages.push({ isDots: true });
-    }
-
-    if (maxPage > 1) {
-      pages.push({
-        number: maxPage,
-        isActive: currentPage === maxPage,
-      });
-    }
-  }
-
-  return {
-    pages,
-    showPrev: currentPage > 1,
-    prevPage: currentPage - 1,
-    showNext: currentPage < maxPage,
-    nextPage: currentPage + 1,
-  };
-}
-
-function isMobileView() {
-  return window.matchMedia('only screen and (max-width: 768px)').matches;
-}
-
-export function renderPagination(currentPage, totalPages) {
-  const mobile = isMobileView();
-  const context = getPaginationContext(currentPage, totalPages, mobile);
-  refs.pagination.insertAdjacentHTML(
-    'beforeend',
-    paginationPageTemplate(context)
+export function renderPagination() {
+  const mobile = window.matchMedia(
+    'only screen and (max-width: 768px)'
+  ).matches;
+  const context = getPaginationContext(
+    state.currentPage,
+    state.totalPages,
+    mobile
   );
+  renderTemplate(paginationPage, context, refs.pagination);
 }
+
+async function onPageChange(e) {
+  refs.pagination.innerHTML = '';
+  const pageBtn = e.target.closest('[data-page]');
+  if (!pageBtn) return;
+
+  const newPage = Number(pageBtn.dataset.page);
+  if (newPage === state.currentPage) return;
+
+  state.currentPage = newPage;
+  state.isLoading = true;
+
+  try {
+    refs.gallery.innerHTML = '';
+    await fetchMovies(state.currentQuery, state.currentPage);
+
+    homeView();
+  } catch (error) {
+    console.error('Pagination Error:', error);
+  } finally {
+    state.isLoading = false;
+  }
+}
+
+refs.pagination.addEventListener('click', onPageChange);
+
+function updatePaginationOnResize() {
+  refs.pagination.innerHTML = '';
+  renderPagination();
+}
+
+const debouncedResizeHandler = _.debounce(updatePaginationOnResize, 250);
+
+window.addEventListener('resize', debouncedResizeHandler);

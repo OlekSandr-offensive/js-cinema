@@ -16,14 +16,6 @@
 }
 
 .btn-page {
-  &:not(:last-child) {
-    margin-right: 15px;
-    @media screen and (max-width: 767px) {
-      & {
-        margin-right: auto;
-      }
-    }
-  }
   font-family: Roboto;
   font-style: normal;
   font-weight: v.$sec-font-weight;
@@ -38,6 +30,14 @@
   border: none;
   outline: none;
   cursor: pointer;
+  &:not(:last-child) {
+    margin-right: 15px;
+    & {
+      @media screen and (max-width: 767px) {
+        margin-right: auto;
+      }
+    }
+  }
 }
 
 .btn-page:hover {
@@ -60,24 +60,30 @@
   fill: v.$main-text-color;
 }
 
-.previous::after {
-  display: inline-block;
-  content: '';
-  width: 24px;
-  height: 24px;
-  background-image: url(../images/arrow-right.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
+// .previous::after {
+//   display: inline-block;
+//   content: '';
+//   width: 24px;
+//   height: 24px;
+//   background-image: url(../images/arrow-right.svg);
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-size: cover;
+//   &:hover {
+//     filter: brightness(0) invert(0);
+//   }
+// }
 
-.next::after {
-  display: inline-block;
-  content: '';
-  width: 24px;
-  height: 24px;
-  background-image: url(../images/arrow-left.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
+// .next::after {
+//   display: inline-block;
+//   content: '';
+//   width: 24px;
+//   height: 24px;
+//   background-image: url(../images/arrow-left.svg);
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-size: cover;
+//   &:hover {
+//     filter: brightness(0) invert(1);
+//   }
+// }

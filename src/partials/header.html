@@ -15,6 +15,7 @@
                 type="checkbox"
                 name="theme"
                 id="theme-switch-toggle"
+                data-switch-theme-toggle
                 aria-label="Switch between dark and light theme"
               />
               <label
@@ -38,25 +39,35 @@
             </svg>
             <span class="logo-text">Film library</span>
           </a>
-          <nav class="header-nav">
-            <!-- <button type="button" class="sing_in" data-action="Sind-In">Sign In</button> -->
+          <nav class="header-nav" data-header-nav>
             <ul class="header-nav-list">
               <li class="header-nav-item item-home current">
-                <a href="./index.html" class="header-link js-home">Home</a>
+                <a href="/home" class="header-link js-home">Home</a>
               </li>
-              <li class="header-nav-item item-library">
-                <!-- visually-hidden -->
-                <a href="/" class="header-link js-library nav-link"
+              <li class="header-nav-item item-library js-library">
+                <a href="/library" class="header-link js-library nav-link"
                   >my library</a
                 >
               </li>
+              <li class="header-nav-item item-login">
+                <a href="/login" class="header-link nav-link"> Sign in</a>
+              </li>
             </ul>
+            <button
+              type="button"
+              class="button item-logout"
+              data-action="log-out"
+            >
+              Log out
+            </button>
           </nav>
         </div>
-        <form class="form-container" id="search-form">
+        <form class="form-container" id="search-form" data-search-form>
           <input
             id="search-input"
             type="text"
+            data-search-input
+            autocomplete="off"
             placeholder="Search movies..."
             class="js-input search-input"
             name="query"
@@ -65,7 +76,6 @@
             <use href="./images/symbol-defs.svg#icon-search"></use>
           </svg>
         </form>
-
         <div class="js-search-results header-warning"></div>
       </section>
     </div>

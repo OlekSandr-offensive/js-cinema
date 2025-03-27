@@ -1,3 +1,5 @@
+@use '../utils/variables' as v;
+
 html {
   box-sizing: border-box;
 }
@@ -42,8 +44,10 @@ img {
   padding-bottom: 40px;
 
   @media screen and (min-width: 768px) {
-    padding-top: 45px;
-    padding-bottom: 35px;
+    & {
+      padding-top: 45px;
+      padding-bottom: 35px;
+    }
   }
 }
 
@@ -69,10 +73,11 @@ img {
 
 .gallery {
   @media screen and (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    // margin: -15px;
+    & {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
   }
 }
 .gallery-item-card {
@@ -83,18 +88,24 @@ img {
 
   &:not(:last-child) {
     @media screen and (max-width: 767px) {
-      margin-bottom: 20px;
+      & {
+        margin-bottom: 20px;
+      }
     }
   }
 
   @media screen and (min-width: 768px) {
-    flex-basis: calc((100% - 2 * 30px) / 2);
-    margin: 15px;
+    & {
+      flex-basis: calc((100% - 2 * 30px) / 2);
+      margin: 15px;
+    }
   }
 
   @media screen and (min-width: 768px) {
-    flex-basis: calc((100% - 3 * 30px) / 3);
-    margin: 15px;
+    & {
+      flex-basis: calc((100% - 3 * 30px) / 3);
+      margin: 15px;
+    }
   }
 }
 
@@ -128,11 +139,15 @@ img {
   box-shadow: 0 0 20px rgba(55%, 55%, 55%, 0.5);
 
   @media screen and (min-width: 768px) {
-    width: 294px;
+    & {
+      width: 294px;
+    }
   }
 
   @media screen and (min-width: 1024px) {
-    width: 274px;
+    & {
+      width: 274px;
+    }
   }
 }
 .poster-container:hover,
@@ -153,7 +168,7 @@ img {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
-  color: #ff6b08;
+  color: v.$accent-color;
 }
 
 .text-rating {
@@ -165,8 +180,8 @@ img {
   font-size: 12px;
   line-height: 1.33;
   text-align: center;
-  color: #ffffff;
-  background-color: #ff6b01;
+  color: v.$main-white-color;
+  background-color: v.$accent-text-color;
 }
 .text-details {
   display: flex;
@@ -190,8 +205,8 @@ img {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.17;
-  color: #ffffff;
-  background-color: #ff6b01;
+  color: v.$main-white-color;
+  background-color: v.$accent-text-color;
   border-radius: 5px;
 }
 
@@ -206,6 +221,6 @@ img {
 
   border-radius: 50%;
   border: none;
-  background-color: black;
-  color: white;
+  background-color: v.$main-text-color;
+  color: v.$main-white-color;
 }

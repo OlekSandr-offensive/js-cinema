@@ -1,2 +1,7 @@
-export { default as pagination } from './pagination';
-export { default as theme } from './theme';
+export { renderMovieCards } from './movieCard';
+export { renderPagination } from './pagination';
+export { openAuthModal } from './authModal';
+export { openSingUpModal } from './signUpModal';
+export { urlWithError, redirectError } from './urlWithError';
+export { passwordToggle } from './passwordToggle';
+export { updateHeaderUI, updateModalUI } from './updateUI';

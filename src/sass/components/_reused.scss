@@ -61,6 +61,10 @@
   @include m.transition(box-shadow, background-color);
 }
 
+.button:active {
+  transform: scale(0.95);
+}
+
 .button-orange {
   background-color: v.$accent-color;
   border-color: transparent;

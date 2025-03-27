@@ -1,1 +1,1 @@
-export { default } from './apiService';
+export { getPopularMovies, getMovieGenres, searchMovies } from './apiService';
