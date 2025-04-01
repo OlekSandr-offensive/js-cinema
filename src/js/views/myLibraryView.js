@@ -1,5 +1,6 @@
 import libraryBtnTpl from 'bundle-text:../../templates/libraryBtnTpl.hbs';
 import { renderTemplate, getRefs } from '../utils';
+import { setupListenersLibraryColl } from '../components';
 
 const refs = getRefs();
 
@@ -13,10 +14,11 @@ export function myLibraryView() {
   );
   refs.itemHome.classList.remove('current');
   refs.itemLibrary.classList.add('current');
-  renderButton();
+  renderButtons();
+  setupListenersLibraryColl();
 }
 
-function renderButton() {
+function renderButtons() {
   const makeBtn = document.createElement('div');
   makeBtn.classList.add('btn-container');
   makeBtn.setAttribute('data-btn', 'container');

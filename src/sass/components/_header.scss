@@ -170,7 +170,12 @@
 }
 
 .header-nav .header-nav-item:not(:last-child) {
-  margin-right: 39px;
+  margin-right: 15px;
+  @media screen and (min-width: 768px) {
+    & {
+      margin-right: 39px;
+    }
+  }
 }
 
 .header-nav .header-nav-item::after {

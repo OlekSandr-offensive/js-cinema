@@ -1,23 +1,33 @@
 import { getRefs } from '../utils';
-import { redirectError, passwordToggle } from '../components';
+import {
+  redirectError,
+  passwordToggle,
+  submitSignUp,
+  submitLogIn,
+  submitLogOut,
+  submitSignInWithGoogle,
+} from '../components';
 
 const refs = getRefs();
 
 refs.movieDetails.addEventListener('click', eventDelegation);
+refs.logOutBtn.addEventListener('click', eventDelegation);
 
 function eventDelegation(event) {
-  event.preventDefault();
-  const action = event.target.getAttribute('data-action');
+  const target = event.target.closest('button');
+  if (!target) return;
+  const action = target.getAttribute('data-action');
 
   if (action && actionsMap[action]) {
-    actionsMap[action]();
+    actionsMap[action](event);
   }
 }
 
 const actionsMap = {
-  'sign-up': null,
+  'sign-up': submitSignUp,
   'toggle-password': passwordToggle,
-  'log-in': null,
+  'log-in': submitLogIn,
   'go-back': redirectError,
-  'sign-in-with-google': null,
+  'sign-in-with-google': submitSignInWithGoogle,
+  'log-out': submitLogOut,
 };

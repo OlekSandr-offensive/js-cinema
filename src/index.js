@@ -10,6 +10,9 @@ import './js/components/updateUI';
 import './js/components/authModal';
 import './js/components/passwordToggle';
 import './js/components/eventDelegation';
+import './js/components/authForm';
+import './js/components/addToStorage';
+import './js/components/libraryCollections';
 
 import './js/models/Movie';
 
@@ -19,6 +22,8 @@ import './js/routers/router';
 import './js/routers/privateRouter';
 
 import './js/services/apiService';
+import './js/services/authService';
+import './js/services/libraryService';
 
 import './js/state/state';
 

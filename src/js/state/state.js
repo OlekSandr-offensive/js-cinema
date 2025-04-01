@@ -1,6 +1,7 @@
 export const state = {
   user: null,
   movies: [],
+  libraryMovies: [],
   genres: [],
   watched: new Set(),
   queue: new Set(),
@@ -8,5 +9,5 @@ export const state = {
   totalPages: 0,
   currentPage: 1,
   isLoading: false,
-  isAuthenticated: false,
+  isAuthenticated: Boolean,
 };

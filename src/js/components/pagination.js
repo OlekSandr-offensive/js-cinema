@@ -3,10 +3,11 @@ import {
   getPaginationContext,
   renderTemplate,
   getRefs,
-  fetchMovies,
+  initMoviesState,
 } from '../utils';
 import { state } from '../state';
-import { homeView } from '../views/homeView';
+import { homeView } from '../views';
+import { showSpinner } from './spinner';
 
 const refs = getRefs();
 
@@ -32,16 +33,18 @@ async function onPageChange(e) {
 
   state.currentPage = newPage;
   state.isLoading = true;
+  showSpinner();
 
   try {
     refs.gallery.innerHTML = '';
-    await fetchMovies(state.currentQuery, state.currentPage);
+    await initMoviesState(state.currentQuery, state.currentPage);
 
     homeView();
   } catch (error) {
     console.error('Pagination Error:', error);
   } finally {
     state.isLoading = false;
+    showSpinner();
   }
 }
 

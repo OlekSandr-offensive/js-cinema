@@ -1,12 +1,16 @@
 export class Modal {
   constructor({
-    rootSelector,
+    rootSelector = '',
     selectors = {},
     activeClass = '',
     bodyClass = '',
     onOpen = () => {},
     onClose = () => {},
-  }) {
+  } = {}) {
+    if (!rootSelector) {
+      throw new Error('rootSelector is required');
+    }
+
     this.activeClass = activeClass;
     this.refs = this.getRefs(rootSelector, selectors);
     this.bodyClass = bodyClass;

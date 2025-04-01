@@ -1,9 +1,10 @@
 import { state } from '../state';
 import movieDetailsCard from 'bundle-text:../../templates/movieDetailsCard.hbs';
-import { getRefs, renderTemplate } from '../utils';
+import { getRefs, renderTemplate, updateStorageButton } from '../utils';
 import { Modal } from '../plugins';
 import Notiflix from 'notiflix';
 import { updateModalUI } from './updateUI';
+import { setupListenersModalBtn } from './addToStorage';
 
 const refs = getRefs();
 
@@ -17,7 +18,11 @@ const modal = new Modal({
   onOpen: movieId => {
     if (!movieId) return;
     getPopularMoviesDetails(Number(movieId));
+    setupListenersModalBtn(Number(movieId));
+    updateStorageButton(Number(movieId), 'watched');
+    updateStorageButton(Number(movieId), 'queue');
   },
+  onClose: () => {},
 });
 
 async function getPopularMoviesDetails(movieId) {

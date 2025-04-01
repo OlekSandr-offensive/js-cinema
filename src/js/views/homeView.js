@@ -10,7 +10,6 @@ export function homeView() {
     container.innerHTML = '<p>No movies found.</p>';
     return;
   }
-  updateHeaderUI();
   refs.homeContainer.classList.replace('library-container', 'home-container');
   refs.homeBgcContainer.classList.replace(
     'library-bgc-container',

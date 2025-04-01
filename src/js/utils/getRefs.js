@@ -32,6 +32,7 @@ export function getRefs() {
     togglePassword: document.querySelector('[data-action="toggle-password"]'),
     passwordInput: document.querySelector('#password'),
     // authentication buttons
+    logOutBtn: document.querySelector('[data-action="log-out"]'),
     logInBtn: document.querySelector('[data-action="log-in"]'),
     signUpBtn: document.querySelector('[data-action="sign-up"]'),
     signInWithGoogleBtn: document.querySelector(
@@ -44,5 +45,12 @@ export function getRefs() {
     itemSignIn: document.querySelector('.js-sign-in'),
     UiWatchedBtn: document.querySelector('.js-add-to-watched'),
     UiQueueBtn: document.querySelector('.js-add-to-queue'),
+    // get input
+    emailInput: document.querySelector('#email'),
+    // storage buttons
+    btnWatched: document.querySelector('[data-action="add-to-watched"]'),
+    btnQueue: document.querySelector('[data-action="add-to-queue"]'),
+    libraryWatched: document.querySelector('[data-action="watched"]'),
+    libraryQueue: document.querySelector('[data-action="queue"]'),
   };
 }
