@@ -1,6 +1,11 @@
 import { state } from '../state';
 import movieDetailsCard from 'bundle-text:../../templates/movieDetailsCard.hbs';
-import { getRefs, renderTemplate, updateStorageButton } from '../utils';
+import {
+  getRefs,
+  renderTemplate,
+  updateStorageButton,
+  changeModalBtn,
+} from '../utils';
 import { Modal } from '../plugins';
 import Notiflix from 'notiflix';
 import { updateModalUI } from './updateUI';
@@ -19,21 +24,45 @@ const modal = new Modal({
     if (!movieId) return;
     getPopularMoviesDetails(Number(movieId));
     setupListenersModalBtn(Number(movieId));
-    updateStorageButton(Number(movieId), 'watched');
-    updateStorageButton(Number(movieId), 'queue');
+    if (window.location.pathname.includes('/home')) {
+      updateStorageButton(Number(movieId), 'watched');
+      updateStorageButton(Number(movieId), 'queue');
+    } else if (window.location.pathname.includes('/library/watched')) {
+      changeModalBtn('watched');
+    } else if (window.location.pathname.includes('/library/queue')) {
+      changeModalBtn('queue');
+    }
   },
-  onClose: () => {},
 });
 
 async function getPopularMoviesDetails(movieId) {
   refs.movieDetails.innerHTML = '';
-  const details = state.movies.find(movie => movie.id === movieId);
-  if (!details) {
-    Notiflix.Notify.failure('Movie not found. Please try again.');
-    return;
+  if (window.location.pathname.includes('/home')) {
+    const details = state.movies.find(movie => movie.id === movieId);
+    if (!details) {
+      Notiflix.Notify.failure('Movie not found. Please try again.');
+      return;
+    }
+    renderTemplate(movieDetailsCard, details, refs.movieDetails);
+  } else if (window.location.pathname.includes('/library/watched')) {
+    const details = state.libraryMovies.watched.find(
+      movie => movie.id === movieId
+    );
+    if (!details) {
+      Notiflix.Notify.failure('Movie not found. Please try again.');
+      return;
+    }
+    renderTemplate(movieDetailsCard, details, refs.movieDetails);
+  } else if (window.location.pathname.includes('/library/queue')) {
+    const details = state.libraryMovies.queue.find(
+      movie => movie.id === movieId
+    );
+    if (!details) {
+      Notiflix.Notify.failure('Movie not found. Please try again.');
+      return;
+    }
+    renderTemplate(movieDetailsCard, details, refs.movieDetails);
   }
-  const result = renderTemplate(movieDetailsCard, details, refs.movieDetails);
-  return result;
 }
 
 function openMovieModal(e) {

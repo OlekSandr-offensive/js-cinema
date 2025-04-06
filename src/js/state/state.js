@@ -1,10 +1,15 @@
 export const state = {
   user: null,
   movies: [],
-  libraryMovies: [],
   genres: [],
-  watched: new Set(),
-  queue: new Set(),
+  sets: {
+    watchedIds: new Set(),
+    queueIds: new Set(),
+  },
+  libraryMovies: {
+    watched: [],
+    queue: [],
+  },
   currentQuery: '',
   totalPages: 0,
   currentPage: 1,

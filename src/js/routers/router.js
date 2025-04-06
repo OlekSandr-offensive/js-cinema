@@ -1,12 +1,49 @@
 import { homeView } from '../views';
-import { openAuthModal, openSingUpModal, urlWithError } from '../components';
-import { getRefs } from '../utils';
-import { privateRouter } from './privateRouter.js';
+import {
+  openAuthModal,
+  openSingUpModal,
+  urlWithError,
+  getLibraryCollection,
+} from '../components';
+import { initLibraryState } from '../utils';
+import { privateRoute } from './privateRoute.js';
+import { state } from '../state';
 
-const refs = getRefs();
+const routes = {
+  '/': () => homeView(),
+  '/home': () => homeView(),
+  '/login': () => {
+    openAuthModal();
+    homeView();
+  },
+  '/signup': () => {
+    openSingUpModal();
+    homeView();
+  },
+  '/library': () => privateRoute('/library'),
+  '/library/watched': async () => {
+    const isPrivateRoute = privateRoute('/library/watched');
+    if (!isPrivateRoute) return;
+
+    if (state.libraryMovies?.watched) {
+      getLibraryCollection('watched');
+    } else {
+      await initLibraryState();
+    }
+  },
+  '/library/queue': async () => {
+    const isPrivateRoute = privateRoute('/library/queue');
+    if (!isPrivateRoute) return;
+
+    if (state.libraryMovies?.queue) {
+      getLibraryCollection('queue');
+    } else {
+      await initLibraryState();
+    }
+  },
+};
 export function initRouter() {
-  refs.parentNav.addEventListener('click', routListener);
-  refs.movieDetails.addEventListener('click', routListener);
+  document.body.addEventListener('click', routListener);
 
   window.addEventListener('popstate', handleRouteChange);
 
@@ -14,43 +51,30 @@ export function initRouter() {
 }
 
 function routListener(event) {
-  const link = event.target.closest('a');
+  const link = event.target.closest('a[href]');
 
   if (!link || !link.href.startsWith(window.location.origin)) return;
 
-  event.preventDefault();
   const route = link.getAttribute('href');
+
+  event.preventDefault();
   navigateTo(route);
 }
 
-function navigateTo(path) {
+export function navigateTo(path) {
   if (window.location.pathname === path) return;
   history.pushState({ route: path }, '', path);
   handleRouteChange();
 }
 
-function handleRouteChange() {
+export async function handleRouteChange() {
   const path = window.location.pathname;
 
-  switch (path) {
-    case '/':
-      homeView();
-      break;
-    case '/home':
-      homeView();
-      break;
-    case '/library':
-      privateRouter(path);
-      break;
-    case '/login':
-      openAuthModal();
-      homeView();
-      break;
-    case '/signup':
-      openSingUpModal();
-      homeView();
-      break;
-    default:
-      urlWithError();
+  const route = routes[path];
+
+  if (route) {
+    await route();
+  } else {
+    urlWithError();
   }
 }

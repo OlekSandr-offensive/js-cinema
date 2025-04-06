@@ -12,5 +12,6 @@ export {
   submitSignInWithGoogle,
 } from './authForm';
 export { setupListenersModalBtn } from './addToStorage';
-export { setupListenersLibraryColl } from './libraryCollections';
 export { showSpinner } from './spinner';
+export { getLibraryCollection } from './libraryCollections';
+export { deleteMovieById, deleteMovieByIdOnModal } from './deleteMovieById';

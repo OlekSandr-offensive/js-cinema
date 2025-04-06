@@ -3,6 +3,7 @@
 @use './utils/variables';
 @use './utils//visually-hidden';
 @use './components/reused';
+@use './utils/deleteItem';
 
 @use './components/header';
 @use './components/container';

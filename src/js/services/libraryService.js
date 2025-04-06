@@ -5,8 +5,6 @@ import {
   deleteDoc,
   collection,
   getDocs,
-  query,
-  where,
 } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { state } from '../state/state';
@@ -37,14 +35,18 @@ export async function removeMovieFromLibrary(movieId, type) {
   }
 }
 
-export async function getLibraryMovies(type) {
+export async function getLibraryMovies() {
   try {
     const userId = state.user.uid;
-    const q = query(collection(db, 'users', userId, type));
-    const querySnapshot = await getDocs(q);
+    const watchedSnap = await getDocs(
+      collection(db, 'users', userId, 'watched')
+    );
+    const queueSnap = await getDocs(collection(db, 'users', userId, 'queue'));
 
-    const movies = querySnapshot.docs.map(doc => doc.data());
-    return movies;
+    const watched = watchedSnap.docs.map(doc => doc.data());
+    const queue = queueSnap.docs.map(doc => doc.data());
+
+    return { watched, queue };
   } catch (error) {
     console.error('Error getting library:', error);
     throw error;

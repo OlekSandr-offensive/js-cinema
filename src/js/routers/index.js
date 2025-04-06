@@ -1,2 +1,2 @@
-export { initRouter } from './router.js';
-export { privateRouter } from './privateRouter.js';
+export { initRouter, handleRouteChange } from './router.js';
+export { privateRoute } from './privateRoute.js';

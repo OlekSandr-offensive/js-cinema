@@ -9,7 +9,6 @@ const getScroll = () => {
     refs.scrollToTop.classList.remove('scroll-show');
   }
 };
-
 const onScrollTop = () => {
   refs.header.scrollIntoView({ behavior: 'smooth' });
 };

@@ -52,5 +52,7 @@ export function getRefs() {
     btnQueue: document.querySelector('[data-action="add-to-queue"]'),
     libraryWatched: document.querySelector('[data-action="watched"]'),
     libraryQueue: document.querySelector('[data-action="queue"]'),
+    deleteBtn: document.querySelector('[data-action="delete-movie"]'),
+    listenerCard: document.querySelector('[data-listener]'),
   };
 }

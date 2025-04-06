@@ -6,6 +6,7 @@ import {
 } from '../services';
 import { Movie } from '../models/Movie';
 import { state } from '../state';
+import { saveToLocal, loadFromLocal } from './localStorage';
 
 export async function initGenresState() {
   try {
@@ -45,13 +46,34 @@ export async function initMoviesState(query = '', page = 1) {
 
 export async function initLibraryState() {
   try {
-    const watchedMovies = await getLibraryMovies('watched');
-    const queueMovies = await getLibraryMovies('queue');
+    const { watched, queue } = await getLibraryMovies();
 
-    state.watched = new Set(watchedMovies.map(movie => movie.id));
-    state.queue = new Set(queueMovies.map(movie => movie.id));
+    state.libraryMovies.watched = watched;
+    state.libraryMovies.queue = queue;
+
+    state.watched = new Set(watched.map(movie => movie.id));
+    state.queue = new Set(queue.map(movie => movie.id));
+
+    saveToLocal({ watched, queue }, 'library');
   } catch (error) {
     console.error('Error initializing library state:', error);
     throw error;
   }
+}
+
+export function initLibraryFromStorage() {
+  const { watched, queue } = loadFromLocal('library') || [];
+
+  const user = loadFromLocal('user') || null;
+
+  if (user) {
+    state.user = user;
+    state.isAuthenticated = true;
+  }
+
+  state.libraryMovies.watched = watched;
+  state.libraryMovies.queue = queue;
+
+  state.watched = new Set(watched.map(movie => movie.id));
+  state.queue = new Set(queue.map(movie => movie.id));
 }

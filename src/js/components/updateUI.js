@@ -3,7 +3,6 @@ import { state } from '../state';
 
 export function updateHeaderUI() {
   const refs = getRefs();
-
   if (state.isAuthenticated) {
     refs.itemLogin.style.display = 'none';
     refs.itemLogout.style.display = 'block';
