@@ -1,11 +1,6 @@
 import { removeMovieFromLibrary } from '../services';
 import Notiflix from 'notiflix';
-import {
-  getStateMoviesId,
-  getStateMovies,
-  saveToLocal,
-  getPathname,
-} from '../utils';
+import { getPathname } from '../utils';
 import { state } from '../state';
 
 export async function deleteMovieById(e) {
@@ -32,11 +27,10 @@ export async function deleteMovieByIdOnModal(movieId, container) {
 
         const type = getPathname();
 
-        getStateMoviesId(type).delete(movieId);
-        state.libraryMovies[type] = getStateMovies(type).filter(
-          m => m.id !== movieId
-        );
-        saveToLocal({ ...state.libraryMovies }, 'library');
+        state.sets[type].delete(Number(movieId));
+
+        const updated = state.libraryMovies[type].filter(m => m.id !== movieId);
+        state.libraryMovies[type] = updated;
 
         await removeMovieFromLibrary(movieId, type);
       } catch (error) {

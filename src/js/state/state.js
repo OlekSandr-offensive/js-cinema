@@ -3,8 +3,8 @@ export const state = {
   movies: [],
   genres: [],
   sets: {
-    watchedIds: new Set(),
-    queueIds: new Set(),
+    watched: new Set(),
+    queue: new Set(),
   },
   libraryMovies: {
     watched: [],
@@ -12,7 +12,11 @@ export const state = {
   },
   currentQuery: '',
   totalPages: 0,
-  currentPage: 1,
-  isLoading: false,
+  currentPage: {
+    home: 1,
+    watched: 1,
+    queue: 1,
+  },
+  isLoading: Boolean,
   isAuthenticated: Boolean,
 };

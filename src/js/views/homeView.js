@@ -1,28 +1,34 @@
 import { state } from '../state';
-import { renderMovieCards, renderPagination } from '../components';
-import { getRefs } from '../utils';
-import { updateHeaderUI } from '../components';
+import { renderMovieCards } from '../components';
+import { getRefs, renderPagination } from '../utils';
 
-const refs = getRefs();
+const {
+  gallery,
+  homeContainer,
+  homeBgcContainer,
+  itemHome,
+  itemLibrary,
+  searchForm,
+} = getRefs();
 
 export function homeView() {
   if (!state.movies.length) {
     container.innerHTML = '<p>No movies found.</p>';
     return;
   }
-  refs.homeContainer.classList.replace('library-container', 'home-container');
-  refs.homeBgcContainer.classList.replace(
+  homeContainer.classList.replace('library-container', 'home-container');
+  homeBgcContainer.classList.replace(
     'library-bgc-container',
     'home-bgc-container'
   );
-  refs.itemLibrary.classList.remove('current');
-  refs.itemHome.classList.add('current');
-  renderMovieCards(state.movies, refs.gallery);
+  itemLibrary.classList.remove('current');
+  itemHome.classList.add('current');
+  renderMovieCards(state.movies, gallery);
   renderPagination();
   renderSearchInput();
 }
 
 function renderSearchInput() {
   const btnContainer = document.querySelector('[data-btn="container"]');
-  if (btnContainer) btnContainer.replaceWith(refs.searchForm);
+  if (btnContainer) btnContainer.replaceWith(searchForm);
 }

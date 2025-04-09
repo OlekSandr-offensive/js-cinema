@@ -1,25 +1,32 @@
 import { state } from '../state';
 
 class Spinner {
-  constructor() {
-    this.ref = this.getRef();
-  }
-
-  getRef() {
-    return document.querySelector('.spinner');
-  }
-
-  disable() {
-    this.ref.classList.add('visually-hidden');
+  constructor({ noBackground = false } = {}) {
+    this.noBackground = noBackground;
+    this.ref = document.querySelector('.spinner');
   }
 
   enable() {
-    this.ref.classList.remove('visually-hidden');
+    if (this.noBackground) {
+      this.ref.classList.add('no-background');
+      document.body.classList.add('no-background');
+    } else {
+      this.ref.classList.remove('no-background');
+      document.body.classList.remove('no-background');
+    }
+    document.body.classList.add('loading');
+    this.ref.classList.remove('hidden');
+  }
+
+  disable() {
+    document.body.classList.remove('loading', 'finished');
+    document.body.classList.add('finished');
+    this.ref.classList.add('hidden');
   }
 }
 
-export function showSpinner() {
-  const spinner = new Spinner();
+export function showSpinner(noBackground) {
+  const spinner = new Spinner({ noBackground });
   if (state.isLoading) {
     spinner.enable();
   } else {

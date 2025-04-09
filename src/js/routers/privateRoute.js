@@ -1,4 +1,4 @@
-import { homeView, myLibraryView } from '../views';
+import { myLibraryView } from '../views';
 import { state } from '../state';
 import { navigateTo } from './router';
 export function privateRoute(path) {

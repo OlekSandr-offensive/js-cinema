@@ -1,26 +1,30 @@
 import libraryBtnTpl from 'bundle-text:../../templates/libraryBtnTpl.hbs';
 import { renderTemplate, getRefs } from '../utils';
-import { setupListenersLibraryColl, deleteMovieById } from '../components';
-import { state } from '../state';
+import { deleteMovieById } from '../components';
 
-const refs = getRefs();
+const {
+  gallery,
+  pagination,
+  homeContainer,
+  homeBgcContainer,
+  itemHome,
+  itemLibrary,
+  searchForm,
+} = getRefs();
 
 export function myLibraryView() {
-  refs.gallery.innerHTML = '';
-  refs.pagination.innerHTML = '';
-  refs.homeContainer.classList.replace('home-container', 'library-container');
-  refs.homeBgcContainer.classList.replace(
+  gallery.innerHTML = '';
+  pagination.innerHTML = '';
+  homeContainer.classList.replace('home-container', 'library-container');
+  homeBgcContainer.classList.replace(
     'home-bgc-container',
     'library-bgc-container'
   );
-  refs.itemHome.classList.remove('current');
-  refs.itemLibrary.classList.add('current');
+  itemHome.classList.remove('current');
+  itemLibrary.classList.add('current');
   renderButtons();
-  // if (state.isAuthenticated) {
-  //   setupListenersLibraryColl();
-  // }
 
-  refs.gallery.addEventListener('click', deleteMovieById);
+  gallery.addEventListener('click', deleteMovieById);
 }
 
 function renderButtons() {
@@ -28,5 +32,5 @@ function renderButtons() {
   makeBtn.classList.add('btn-container');
   makeBtn.setAttribute('data-btn', 'container');
   renderTemplate(libraryBtnTpl, {}, makeBtn);
-  refs.searchForm.replaceWith(makeBtn);
+  searchForm.replaceWith(makeBtn);
 }

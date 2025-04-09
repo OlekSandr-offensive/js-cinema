@@ -1,38 +1,64 @@
-@use '../utils/variables' as v;
-
 .spinner {
   padding-top: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(48, 25, 52, 0.6),
+    rgba(0, 0, 0, 0.85)
+  );
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease-out, visibility 0.8s ease-out,
+    transform 0.8s ease-out;
+}
+
+.spinner.no-background {
+  background: transparent !important;
+}
+
+.spinner.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
 }
 
 .hollow-dots-spinner {
+  display: contents;
   box-sizing: border-box;
-  height: 15px;
   width: calc(30px * 3);
-
   margin: 0 auto;
 }
 
 .hollow-dots-spinner .dot {
-  width: 15px;
-  height: 15px;
-  margin: 0 calc(15px / 2);
-  border: calc(15px / 5) solid v.$footer-text-color;
+  width: 50px;
+  height: 50px;
+  margin: 18px;
+  border: 3px solid #00f0ff;
   border-radius: 50%;
   float: left;
   transform: scale(0);
   animation: hollow-dots-spinner-animation 1000ms ease infinite 0ms;
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
 }
 
 .hollow-dots-spinner .dot:nth-child(1) {
-  animation-delay: calc(300ms * 1);
+  animation-delay: 100ms;
 }
-
 .hollow-dots-spinner .dot:nth-child(2) {
-  animation-delay: calc(300ms * 2);
+  animation-delay: 200ms;
 }
-
 .hollow-dots-spinner .dot:nth-child(3) {
-  animation-delay: calc(300ms * 3);
+  animation-delay: 300ms;
 }
 
 @keyframes hollow-dots-spinner-animation {
@@ -43,4 +69,31 @@
   100% {
     opacity: 0;
   }
+}
+
+body.loading::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: radial-gradient(
+    circle at center,
+    rgba(48, 25, 52, 0.6),
+    rgba(0, 0, 0, 0.85)
+  );
+  transition: opacity 0.8s ease-out;
+  opacity: 1;
+  pointer-events: none;
+}
+
+body.loading.finished::before {
+  opacity: 0;
+}
+
+body {
+  transition: background-color 0.5s ease;
+}
+
+body.no-background::before {
+  background: transparent !important;
 }

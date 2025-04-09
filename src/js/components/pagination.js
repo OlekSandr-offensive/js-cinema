@@ -1,45 +1,46 @@
-import paginationPage from 'bundle-text:../../templates/paginationPage.hbs';
 import {
-  getPaginationContext,
-  renderTemplate,
+  renderPagination,
   getRefs,
   initMoviesState,
+  renderPaginationLibrary,
+  getPathname,
 } from '../utils';
 import { state } from '../state';
-import { homeView } from '../views';
+import { renderMovieCards } from './movieCard';
+import { onScrollGalleryTop } from './backToTop';
+import { getLibraryCollection } from './libraryCollections';
 import { showSpinner } from './spinner';
 
-const refs = getRefs();
-
-export function renderPagination() {
-  const mobile = window.matchMedia(
-    'only screen and (max-width: 768px)'
-  ).matches;
-  const context = getPaginationContext(
-    state.currentPage,
-    state.totalPages,
-    mobile
-  );
-  renderTemplate(paginationPage, context, refs.pagination);
-}
+const { gallery, pagination } = getRefs();
 
 async function onPageChange(e) {
-  refs.pagination.innerHTML = '';
+  e.preventDefault();
   const pageBtn = e.target.closest('[data-page]');
   if (!pageBtn) return;
 
   const newPage = Number(pageBtn.dataset.page);
-  if (newPage === state.currentPage) return;
+  const type = getPathname();
+  const currentPage = state.currentPage[type];
 
-  state.currentPage = newPage;
+  if (newPage === currentPage) return;
+
+  state.currentPage[type] = newPage;
   state.isLoading = true;
-  showSpinner();
+  showSpinner(true);
 
   try {
-    refs.gallery.innerHTML = '';
-    await initMoviesState(state.currentQuery, state.currentPage);
+    gallery.innerHTML = '';
+    pagination.innerHTML = '';
+    if (type === 'home') {
+      await initMoviesState(state.currentQuery, state.currentPage[type]);
 
-    homeView();
+      renderMovieCards(state.movies, gallery);
+      renderPagination();
+    } else {
+      getLibraryCollection(type);
+      renderPaginationLibrary(type);
+    }
+    onScrollGalleryTop();
   } catch (error) {
     console.error('Pagination Error:', error);
   } finally {
@@ -48,10 +49,9 @@ async function onPageChange(e) {
   }
 }
 
-refs.pagination.addEventListener('click', onPageChange);
+pagination.addEventListener('click', onPageChange);
 
 function updatePaginationOnResize() {
-  refs.pagination.innerHTML = '';
   renderPagination();
 }
 

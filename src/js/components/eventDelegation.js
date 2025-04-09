@@ -8,10 +8,10 @@ import {
   submitSignInWithGoogle,
 } from '../components';
 
-const refs = getRefs();
+const { movieDetails, logOutBtn } = getRefs();
 
-refs.movieDetails.addEventListener('click', eventDelegation);
-refs.logOutBtn.addEventListener('click', eventDelegation);
+movieDetails.addEventListener('click', eventDelegation);
+logOutBtn.addEventListener('click', eventDelegation);
 
 function eventDelegation(event) {
   const target = event.target.closest('button');

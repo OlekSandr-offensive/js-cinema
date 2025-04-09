@@ -5,9 +5,7 @@ import {
   urlWithError,
   getLibraryCollection,
 } from '../components';
-import { initLibraryState } from '../utils';
 import { privateRoute } from './privateRoute.js';
-import { state } from '../state';
 
 const routes = {
   '/': () => homeView(),
@@ -21,25 +19,17 @@ const routes = {
     homeView();
   },
   '/library': () => privateRoute('/library'),
-  '/library/watched': async () => {
+  '/library/watched': () => {
     const isPrivateRoute = privateRoute('/library/watched');
     if (!isPrivateRoute) return;
 
-    if (state.libraryMovies?.watched) {
-      getLibraryCollection('watched');
-    } else {
-      await initLibraryState();
-    }
+    getLibraryCollection('watched');
   },
-  '/library/queue': async () => {
+  '/library/queue': () => {
     const isPrivateRoute = privateRoute('/library/queue');
     if (!isPrivateRoute) return;
 
-    if (state.libraryMovies?.queue) {
-      getLibraryCollection('queue');
-    } else {
-      await initLibraryState();
-    }
+    getLibraryCollection('queue');
   },
 };
 export function initRouter() {

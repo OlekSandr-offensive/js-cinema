@@ -6,7 +6,6 @@ import {
 } from '../services';
 import { Movie } from '../models/Movie';
 import { state } from '../state';
-import { saveToLocal, loadFromLocal } from './localStorage';
 
 export async function initGenresState() {
   try {
@@ -18,26 +17,29 @@ export async function initGenresState() {
   }
 }
 
-export async function initMoviesState(query = '', page = 1) {
+export async function initMoviesState(
+  query = '',
+  page = state.currentPage.home
+) {
   try {
-    let results;
+    let response;
     let totalPages;
 
     if (query) {
-      const searchResults = await searchMovies(query, page);
-      results = searchResults.results;
-      totalPages = searchResults.total_pages;
+      const { results, total_pages } = await searchMovies(query, page);
+      response = results;
+      totalPages = total_pages;
     } else {
-      const popularMovies = await getPopularMovies(page);
-      results = popularMovies.results;
-      totalPages = popularMovies.total_pages;
+      const { results, total_pages } = await getPopularMovies(page);
+      response = results;
+      totalPages = total_pages;
     }
 
-    state.movies = results.map(movie => new Movie(movie, state.genres));
+    state.movies = response.map(movie => new Movie(movie, state.genres));
     state.totalPages = totalPages;
-    state.currentPage = page;
+    state.currentPage.home = page;
 
-    return results;
+    return response;
   } catch (error) {
     console.error('Error fetching movies:', error);
     throw error;
@@ -51,29 +53,10 @@ export async function initLibraryState() {
     state.libraryMovies.watched = watched;
     state.libraryMovies.queue = queue;
 
-    state.watched = new Set(watched.map(movie => movie.id));
-    state.queue = new Set(queue.map(movie => movie.id));
-
-    saveToLocal({ watched, queue }, 'library');
+    state.sets.watched = new Set(watched.map(movie => movie.id));
+    state.sets.queue = new Set(queue.map(movie => movie.id));
   } catch (error) {
     console.error('Error initializing library state:', error);
     throw error;
   }
-}
-
-export function initLibraryFromStorage() {
-  const { watched, queue } = loadFromLocal('library') || [];
-
-  const user = loadFromLocal('user') || null;
-
-  if (user) {
-    state.user = user;
-    state.isAuthenticated = true;
-  }
-
-  state.libraryMovies.watched = watched;
-  state.libraryMovies.queue = queue;
-
-  state.watched = new Set(watched.map(movie => movie.id));
-  state.queue = new Set(queue.map(movie => movie.id));
 }

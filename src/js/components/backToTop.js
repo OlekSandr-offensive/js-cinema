@@ -1,18 +1,22 @@
 import { getRefs } from '../utils';
 
-const refs = getRefs();
+const { scrollToTop, header, gallery } = getRefs();
 
 const getScroll = () => {
   if (document.documentElement.scrollTop) {
-    refs.scrollToTop.classList.add('scroll-show');
+    scrollToTop.classList.add('scroll-show');
   } else {
-    refs.scrollToTop.classList.remove('scroll-show');
+    scrollToTop.classList.remove('scroll-show');
   }
 };
 const onScrollTop = () => {
-  refs.header.scrollIntoView({ behavior: 'smooth' });
+  header.scrollIntoView({ behavior: 'smooth' });
+};
+
+export const onScrollGalleryTop = () => {
+  gallery.scrollIntoView({ behavior: 'smooth' });
 };
 
 window.onscroll = getScroll;
 
-refs.scrollToTop.addEventListener('click', onScrollTop);
+scrollToTop.addEventListener('click', onScrollTop);

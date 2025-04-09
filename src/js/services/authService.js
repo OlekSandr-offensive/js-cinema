@@ -7,6 +7,9 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth';
 import { auth } from '../firebase-config/firebase-config';
+import { updateHeaderUI } from '../components';
+import { initLibraryState } from '../utils';
+import { state } from '../state';
 
 const provider = new GoogleAuthProvider();
 
@@ -57,11 +60,21 @@ export async function logoutUser() {
   }
 }
 
-export async function waitForUserAuth() {
-  return new Promise(resolve => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      unsubscribe();
-      resolve(user);
-    });
+export function listenForAuthChanges() {
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      state.user = { uid: user.uid, email: user.email };
+      state.isAuthenticated = true;
+      updateHeaderUI();
+
+      await initLibraryState();
+    } else {
+      state.user = null;
+      state.isAuthenticated = false;
+      updateHeaderUI();
+
+      state.libraryMovies = { watched: [], queue: [] };
+      state.sets = { watched: new Set(), queue: new Set() };
+    }
   });
 }

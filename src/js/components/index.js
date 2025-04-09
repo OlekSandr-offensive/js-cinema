@@ -1,5 +1,4 @@
 export { renderMovieCards } from './movieCard';
-export { renderPagination } from './pagination';
 export { openAuthModal } from './authModal';
 export { openSingUpModal } from './signUpModal';
 export { urlWithError, redirectError } from './urlWithError';
@@ -15,3 +14,4 @@ export { setupListenersModalBtn } from './addToStorage';
 export { showSpinner } from './spinner';
 export { getLibraryCollection } from './libraryCollections';
 export { deleteMovieById, deleteMovieByIdOnModal } from './deleteMovieById';
+export { onScrollGalleryTop } from './backToTop';

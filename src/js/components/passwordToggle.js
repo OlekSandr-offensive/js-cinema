@@ -1,11 +1,11 @@
 import { getRefs } from '../utils';
 
 export function passwordToggle() {
-  const refs = getRefs();
-  if (!refs.passwordInput || !refs.togglePassword) return;
+  const { passwordInput, togglePassword } = getRefs();
+  if (!passwordInput || !togglePassword) return;
 
-  const type = refs.passwordInput.type === 'password' ? 'text' : 'password';
-  refs.passwordInput.type = type;
+  const type = passwordInput.type === 'password' ? 'text' : 'password';
+  passwordInput.type = type;
 
-  refs.togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+  togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
 }

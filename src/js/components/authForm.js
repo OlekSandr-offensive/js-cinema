@@ -7,22 +7,24 @@ import {
 } from '../services/authService';
 import { Modal } from '../plugins';
 import Notiflix from 'notiflix';
+import { navigateTo } from '../routers';
 
 const modal = new Modal({
   rootSelector: '[data-modal]',
   activeClass: 'backdrop-hidden',
+  bodyClass: 'no-scroll',
 });
 
 export async function submitSignUp(e) {
   e.preventDefault();
-  const refs = getRefs();
-  const email = refs.emailInput.value.trim();
-  const password = refs.passwordInput.value.trim();
+  const { emailInput, passwordInput } = getRefs();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
   if (!validateInput(email, password)) return;
   try {
     await registerUser(email, password);
     Notiflix.Notify.success('Registration successful!');
-    history.pushState({ signup: 'signup' }, '', '/home');
+    navigateTo('/home');
     modal.close();
   } catch (error) {
     Notiflix.Notify.failure(`Error: ${error.message}`);
@@ -31,14 +33,14 @@ export async function submitSignUp(e) {
 
 export async function submitLogIn(e) {
   e.preventDefault();
-  const refs = getRefs();
-  const email = refs.emailInput.value.trim();
-  const password = refs.passwordInput.value.trim();
+  const { emailInput, passwordInput } = getRefs();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
   if (!validateInput(email, password)) return;
   try {
     await loginUser(email, password);
     Notiflix.Notify.success('Login successful!');
-    history.pushState({ login: 'login' }, '', '/home');
+    navigateTo('/home');
     modal.close();
   } catch (error) {
     if (error.code === 'auth/invalid-email') {
@@ -60,6 +62,7 @@ export async function submitLogOut() {
   try {
     await logoutUser();
     Notiflix.Notify.success('Exit successful!');
+    navigateTo('/home');
   } catch (error) {
     Notiflix.Notify.failure(`Error: ${error.message}`);
   }
@@ -69,7 +72,7 @@ export async function submitSignInWithGoogle() {
   try {
     await signInWithGoogle();
     Notiflix.Notify.success('Registration successful!');
-    history.pushState({ signup: 'signup' }, '', '/home');
+    navigateTo('/home');
     modal.close();
   } catch (error) {
     Notiflix.Notify.failure(`Error: ${error.message}`);

@@ -5,10 +5,10 @@ export {
   initGenresState,
   initMoviesState,
   initLibraryState,
-  initLibraryFromStorage,
 } from './apiHandler';
 export { validateInput } from './validateInput';
-export { updateStorageButton, changeModalBtn } from './updateStorageButton';
-export { getStateMoviesId, getStateMovies } from './getState';
-export { saveToLocal, loadFromLocal } from './localStorage';
+export { updateButton } from './updateButton';
 export { getPathname } from './getPathname';
+export { getUIContext } from './getUIContext';
+export { renderPagination, renderPaginationLibrary } from './renderPaginations';
+export { paginate } from './padinate';

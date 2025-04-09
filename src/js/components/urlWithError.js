@@ -2,6 +2,7 @@ import urlWithErrorTpl from 'bundle-text:../../templates/urlWithErrorTpl.hbs';
 import { getRefs, renderTemplate } from '../utils';
 import { Modal } from '../plugins';
 import { homeView } from '../views';
+import { navigateTo } from '../routers';
 
 const modal = new Modal({
   rootSelector: '[data-modal]',
@@ -13,18 +14,18 @@ const modal = new Modal({
   closeOnEscape: false,
 });
 
-const refs = getRefs();
+const { movieDetails, closeModalBtn, gallery } = getRefs();
 
 export function urlWithError() {
-  refs.gallery.innerHTML = '';
-  const errorMessage = window.location.pathname;
-  renderTemplate(urlWithErrorTpl, { errorMessage }, refs.movieDetails);
-  if (refs.closeModalBtn) refs.closeModalBtn.remove();
+  gallery.innerHTML = '';
+  const errorPath = window.location.pathname;
+  renderTemplate(urlWithErrorTpl, { errorPath }, movieDetails);
+  if (closeModalBtn) closeModalBtn.remove();
   modal.open();
 }
 
 export function redirectError() {
-  history.pushState({ error: 'error' }, '', '/home');
+  navigateTo('/home');
   modal.close();
   homeView();
 }

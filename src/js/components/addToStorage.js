@@ -1,15 +1,10 @@
 import { addMovieToLibrary } from '../services/libraryService.js';
 import { state } from '../state/state.js';
 import Notiflix from 'notiflix';
-import {
-  getRefs,
-  updateStorageButton,
-  getStateMovies,
-  getStateMoviesId,
-  saveToLocal,
-} from '../utils';
+import { getRefs } from '../utils';
 import { Modal } from '../plugins';
 import { deleteMovieByIdOnModal } from './deleteMovieById';
+import { updateModalUI } from './updateUI.js';
 
 const modal = new Modal({
   rootSelector: '[data-modal]',
@@ -21,31 +16,30 @@ const modal = new Modal({
 });
 
 export function setupListenersModalBtn(movieId) {
-  const refs = getRefs();
-  if (!refs.btnWatched || !refs.btnQueue) return;
-  refs.btnWatched.addEventListener('click', () =>
-    addToWatchedCollection(movieId)
-  );
-  refs.btnQueue.addEventListener('click', () => addToQueueCollection(movieId));
+  const { btnWatched, btnQueue } = getRefs();
+
+  if (!btnWatched || !btnQueue) return;
+  btnWatched.addEventListener('click', () => addToWatchedCollection(movieId));
+  btnQueue.addEventListener('click', () => addToQueueCollection(movieId));
 }
 
 async function addToWatchedCollection(movieId) {
-  const refs = getRefs();
+  const { listenerCard } = getRefs();
   if (window.location.pathname.includes('/home')) {
     await addToStorage(movieId, 'watched');
   } else {
     modal.close();
-    await deleteMovieByIdOnModal(movieId, refs.listenerCard);
+    await deleteMovieByIdOnModal(movieId, listenerCard);
   }
 }
 
 async function addToQueueCollection(movieId) {
-  const refs = getRefs();
+  const { listenerCard } = getRefs();
   if (window.location.pathname.includes('/home')) {
     await addToStorage(movieId, 'queue');
   } else {
     modal.close();
-    await deleteMovieByIdOnModal(movieId, refs.listenerCard);
+    await deleteMovieByIdOnModal(movieId, listenerCard);
   }
 }
 
@@ -57,16 +51,24 @@ async function addToStorage(movieId, type) {
       return;
     }
 
-    getStateMovies(type).push(movieItem);
-    getStateMoviesId(type).add(movieId);
+    if (state.sets[type].has(movieId)) {
+      Notiflix.Notify.info('Movie already in library!');
+      return;
+    }
 
-    saveToLocal({ ...state.libraryMovies }, 'library');
+    state.libraryMovies = {
+      ...state.libraryMovies,
+      [type]: [...state.libraryMovies[type], movieItem],
+    };
+
+    state.sets[type].add(Number(movieId));
 
     await addMovieToLibrary({ ...movieItem }, type);
 
     Notiflix.Notify.success(`Movie added to ${type} list!`);
-    updateStorageButton(movieId, type);
+    updateModalUI(Number(movieId));
   } catch (error) {
+    console.error('Error adding movie to storage:', error);
     Notiflix.Notify.failure(`Error: ${error.message}`);
   }
 }

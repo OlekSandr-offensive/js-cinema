@@ -1,8 +1,9 @@
 import signUpFormTpl from 'bundle-text:../../templates/signUpFormTpl.hbs';
 import { getRefs, renderTemplate } from '../utils';
 import { Modal } from '../plugins';
+import { navigateTo } from '../routers';
 
-const refs = getRefs();
+const { movieDetails } = getRefs();
 
 const modal = new Modal({
   rootSelector: '[data-modal]',
@@ -17,13 +18,13 @@ const modal = new Modal({
     renderSignUpModal();
   },
   onClose: () => {
-    history.pushState({ signup: 'signup' }, '', '/home');
+    navigateTo('/home');
   },
 });
 
 function renderSignUpModal() {
-  refs.movieDetails.innerHTML = '';
-  return renderTemplate(signUpFormTpl, {}, refs.movieDetails);
+  movieDetails.innerHTML = '';
+  return renderTemplate(signUpFormTpl, {}, movieDetails);
 }
 
 export function openSingUpModal() {

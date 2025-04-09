@@ -1,8 +1,9 @@
 import authFormTpl from 'bundle-text:../../templates/authFormTpl.hbs';
 import { getRefs, renderTemplate } from '../utils';
 import { Modal } from '../plugins';
+import { navigateTo } from '../routers';
 
-const refs = getRefs();
+const { movieDetails } = getRefs();
 
 const modal = new Modal({
   rootSelector: '[data-modal]',
@@ -15,13 +16,13 @@ const modal = new Modal({
     renderAuthModal();
   },
   onClose: () => {
-    history.pushState({ login: 'login' }, '', '/home');
+    navigateTo('/home');
   },
 });
 
 function renderAuthModal() {
-  refs.movieDetails.innerHTML = '';
-  return renderTemplate(authFormTpl, {}, refs.movieDetails);
+  movieDetails.innerHTML = '';
+  return renderTemplate(authFormTpl, {}, movieDetails);
 }
 
 export function openAuthModal() {
