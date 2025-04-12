@@ -29,7 +29,7 @@ export function getLibraryCollection(type) {
 
     renderTemplate(movieCardMyLibrary, { movies: paginatedMovies }, gallery);
 
-    if (state.libraryMovies[type].length < itemsPerPage) return;
+    if (state.libraryMovies[type].length <= itemsPerPage) return;
 
     renderPaginationLibrary(type);
   } catch (error) {

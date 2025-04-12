@@ -1,21 +1,22 @@
 {
-  "name": "parcel-project-template",
+  "name": "js-cinema",
   "version": "2.0.0",
-  "description": "",
-  "homepage": "https://goitacademy.github.io/js-cinema",
-  "scripts": {
-    "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /js-cinema/"
-  },
+  "description": "Movie library built with Parcel, Firebase, and TMDB API",
+  "homepage": "https://OlekSandr-offensive.github.io/js-cinema",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goitacademy/parcel-project-template.git"
+    "url": "https://github.com/OlekSandr-offensive/js-cinema"
   },
-  "keywords": [],
-  "author": "Oleksandr Tarasiuk <oleksandr.tarasyuk92@gmail.com>",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OlekSandr-offensive/js-cinema.git"
+    "url": "https://github.com/OlekSandr-offensive/js-cinema/issues"
+  },
+  "author": "Oleksandr Tarasiuk <oleksandr.tarasyuk92@gmail.com> (https://github.com/OlekSandr-offensive)",
+  "license": "ISC",
+  "scripts": {
+    "start": "parcel src/*.html",
+    "build": "parcel build src/index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "axios": "^1.7.9",
@@ -34,5 +35,13 @@
     "process": "^0.11.10",
     "sass": "^1.85.0"
   },
+  "keywords": [
+    "movies",
+    "cinema",
+    "parcel",
+    "firebase",
+    "tmdb",
+    "handlebars"
+  ],
   "browserslist": "> 0.5%, last 2 versions, not dead"
 }

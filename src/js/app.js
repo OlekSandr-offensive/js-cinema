@@ -2,7 +2,7 @@ import Notiflix from 'notiflix';
 import { state } from './state/state.js';
 import { initGenresState, initMoviesState } from './utils';
 import { initRouter } from './routers/router.js';
-import { listenForAuthChanges } from './services';
+import { waitAndListenForAuthChanges } from './services';
 import { showSpinner } from './components';
 
 async function initApp() {
@@ -13,7 +13,7 @@ async function initApp() {
     await initGenresState();
     await initMoviesState();
 
-    listenForAuthChanges();
+    await waitAndListenForAuthChanges();
 
     initRouter();
   } catch (error) {

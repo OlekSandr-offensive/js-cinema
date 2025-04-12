@@ -5,7 +5,6 @@ export function privateRoute(path) {
   const { isAuthenticated } = state;
   const { pathname } = window.location;
   if (!isAuthenticated && path === pathname) {
-    // Redirect to login page if not authenticated and trying to access a private route
     navigateTo('/login');
     return false;
   }

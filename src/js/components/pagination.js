@@ -52,7 +52,12 @@ async function onPageChange(e) {
 pagination.addEventListener('click', onPageChange);
 
 function updatePaginationOnResize() {
-  renderPagination();
+  const type = getPathname();
+  if (type === 'home') {
+    renderPagination();
+  } else {
+    renderPaginationLibrary(type);
+  }
 }
 
 const debouncedResizeHandler = _.debounce(updatePaginationOnResize, 250);

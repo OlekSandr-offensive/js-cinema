@@ -45,13 +45,12 @@ export function getRefs() {
     itemSignIn: document.querySelector('.js-sign-in'),
     UiWatchedBtn: document.querySelector('.js-add-to-watched'),
     UiQueueBtn: document.querySelector('.js-add-to-queue'),
+    UiLibraryBtn: document.querySelector('[data-active]'),
     // get input
     emailInput: document.querySelector('#email'),
     // storage buttons
     btnWatched: document.querySelector('[data-action="add-to-watched"]'),
     btnQueue: document.querySelector('[data-action="add-to-queue"]'),
-    libraryWatched: document.querySelector('[data-action="watched"]'),
-    libraryQueue: document.querySelector('[data-action="queue"]'),
     deleteBtn: document.querySelector('[data-action="delete-movie"]'),
     listenerCard: document.querySelector('[data-listener]'),
   };

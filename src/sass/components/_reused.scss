@@ -69,3 +69,10 @@
   background-color: v.$accent-color;
   border-color: transparent;
 }
+
+.active {
+  background-color: v.$accent-color;
+  color: v.$main-white-color;
+  pointer-events: none;
+  opacity: 0.8;
+}

@@ -6,6 +6,7 @@ import './js/components/movieDetails';
 import './js/components/liveSearch';
 import './js/components/backToTop';
 import './js/components/eventDelegation';
+import './js/components/deleteMovieById';
 
 import './js/views/homeView';
 import './js/views/myLibraryView';

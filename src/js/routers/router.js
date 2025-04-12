@@ -34,7 +34,6 @@ const routes = {
 };
 export function initRouter() {
   document.body.addEventListener('click', routListener);
-
   window.addEventListener('popstate', handleRouteChange);
 
   handleRouteChange();
@@ -57,13 +56,12 @@ export function navigateTo(path) {
   handleRouteChange();
 }
 
-export async function handleRouteChange() {
+export function handleRouteChange() {
   const path = window.location.pathname;
-
   const route = routes[path];
 
   if (route) {
-    await route();
+    route();
   } else {
     urlWithError();
   }

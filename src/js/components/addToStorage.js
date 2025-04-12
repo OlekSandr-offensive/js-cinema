@@ -3,7 +3,7 @@ import { state } from '../state/state.js';
 import Notiflix from 'notiflix';
 import { getRefs } from '../utils';
 import { Modal } from '../plugins';
-import { deleteMovieByIdOnModal } from './deleteMovieById';
+import { deleteMovie } from './deleteMovieById';
 import { updateModalUI } from './updateUI.js';
 
 const modal = new Modal({
@@ -29,7 +29,7 @@ async function addToWatchedCollection(movieId) {
     await addToStorage(movieId, 'watched');
   } else {
     modal.close();
-    await deleteMovieByIdOnModal(movieId, listenerCard);
+    await deleteMovie(movieId, listenerCard, 'watched');
   }
 }
 
@@ -39,7 +39,7 @@ async function addToQueueCollection(movieId) {
     await addToStorage(movieId, 'queue');
   } else {
     modal.close();
-    await deleteMovieByIdOnModal(movieId, listenerCard);
+    await deleteMovie(movieId, listenerCard, 'queue');
   }
 }
 

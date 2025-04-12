@@ -60,21 +60,33 @@ export async function logoutUser() {
   }
 }
 
-export function listenForAuthChanges() {
-  onAuthStateChanged(auth, async user => {
-    if (user) {
-      state.user = { uid: user.uid, email: user.email };
-      state.isAuthenticated = true;
-      updateHeaderUI();
+export function waitAndListenForAuthChanges() {
+  return new Promise(resolve => {
+    const unsubscribe = onAuthStateChanged(auth, async user => {
+      await handleAuthChange(user);
 
-      await initLibraryState();
-    } else {
-      state.user = null;
-      state.isAuthenticated = false;
-      updateHeaderUI();
+      resolve();
+      unsubscribe();
 
-      state.libraryMovies = { watched: [], queue: [] };
-      state.sets = { watched: new Set(), queue: new Set() };
-    }
+      onAuthStateChanged(auth, async user => {
+        await handleAuthChange(user);
+      });
+    });
   });
+}
+
+function handleAuthChange(user) {
+  if (user) {
+    state.user = { uid: user.uid, email: user.email };
+    state.isAuthenticated = true;
+    updateHeaderUI();
+    return initLibraryState();
+  } else {
+    state.user = null;
+    state.isAuthenticated = false;
+    updateHeaderUI();
+    state.libraryMovies = { watched: [], queue: [] };
+    state.sets = { watched: new Set(), queue: new Set() };
+    return Promise.resolve();
+  }
 }

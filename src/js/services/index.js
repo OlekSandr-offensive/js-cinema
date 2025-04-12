@@ -3,7 +3,7 @@ export {
   registerUser,
   loginUser,
   logoutUser,
-  listenForAuthChanges,
+  waitAndListenForAuthChanges,
 } from './authService';
 export {
   getLibraryMovies,

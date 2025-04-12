@@ -17,6 +17,7 @@ export const state = {
     watched: 1,
     queue: 1,
   },
-  isLoading: Boolean,
-  isAuthenticated: Boolean,
+  isLoading: false,
+  isAuthenticated: false,
+  isMobile: window.matchMedia('only screen and (max-width: 768px)').matches,
 };

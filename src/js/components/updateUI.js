@@ -10,10 +10,7 @@ export function updateHeaderUI() {
 
   if (context === 'guest') {
     itemLogin.classList.remove('hidden');
-    itemLogout.classList.add('hidden');
-    itemLibrary.classList.add('hidden');
   } else {
-    itemLogin.classList.add('hidden');
     itemLogout.classList.remove('hidden');
     itemLibrary.classList.remove('hidden');
   }
@@ -52,4 +49,15 @@ export function updateModalUI(movieId) {
     default:
       console.warn('Unknown UI context:', context);
   }
+}
+
+export function toggleLibraryButtons(e) {
+  const btn = e.target.closest('.js-library-btn');
+  if (!btn) return;
+
+  document
+    .querySelectorAll('.js-library-btn')
+    .forEach(b => b.classList.remove('active'));
+
+  btn.classList.add('active');
 }

@@ -1,6 +1,6 @@
 import libraryBtnTpl from 'bundle-text:../../templates/libraryBtnTpl.hbs';
 import { renderTemplate, getRefs } from '../utils';
-import { deleteMovieById } from '../components';
+import { toggleLibraryButtons } from '../components';
 
 const {
   gallery,
@@ -10,6 +10,7 @@ const {
   itemHome,
   itemLibrary,
   searchForm,
+  UiLibraryBtn,
 } = getRefs();
 
 export function myLibraryView() {
@@ -23,8 +24,6 @@ export function myLibraryView() {
   itemHome.classList.remove('current');
   itemLibrary.classList.add('current');
   renderButtons();
-
-  gallery.addEventListener('click', deleteMovieById);
 }
 
 function renderButtons() {
@@ -34,3 +33,5 @@ function renderButtons() {
   renderTemplate(libraryBtnTpl, {}, makeBtn);
   searchForm.replaceWith(makeBtn);
 }
+
+UiLibraryBtn.addEventListener('click', e => toggleLibraryButtons(e));
