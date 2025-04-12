@@ -1,5 +1,4 @@
 import {
-  getFirestore,
   doc,
   setDoc,
   deleteDoc,
@@ -8,8 +7,6 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { state } from '../state/state';
-
-const db = getFirestore();
 
 export async function addMovieToLibrary(movie, type) {
   try {
