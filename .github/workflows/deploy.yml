@@ -32,7 +32,3 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-
-    env:
-      API_KEY: ${{ secrets.API_KEY }}
-      FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
