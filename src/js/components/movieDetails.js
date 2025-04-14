@@ -23,35 +23,26 @@ const modal = new Modal({
   },
 });
 
-async function getPopularMoviesDetails(movieId) {
+function getPopularMoviesDetails(movieId) {
   const type = getPathname();
   movieDetails.innerHTML = '';
+
+  let details;
+
   if (window.location.pathname.includes('/home')) {
-    const details = state.movies.find(movie => movie.id === movieId);
-    if (!details) {
-      Notiflix.Notify.failure('Movie not found. Please try again.');
-      return;
-    }
-    renderTemplate(movieDetailsCard, details, movieDetails);
+    details = state.movies.find(movie => movie.id === movieId);
+    console.log(details);
   } else if (window.location.pathname.includes('/library/watched')) {
-    const details = state.libraryMovies[type].find(
-      movie => movie.id === movieId
-    );
-    if (!details) {
-      Notiflix.Notify.failure('Movie not found. Please try again.');
-      return;
-    }
-    renderTemplate(movieDetailsCard, details, movieDetails);
+    details = state.libraryMovies[type].find(movie => movie.id === movieId);
   } else if (window.location.pathname.includes('/library/queue')) {
-    const details = state.libraryMovies[type].find(
-      movie => movie.id === movieId
-    );
-    if (!details) {
-      Notiflix.Notify.failure('Movie not found. Please try again.');
-      return;
-    }
-    renderTemplate(movieDetailsCard, details, movieDetails);
+    details = state.libraryMovies[type].find(movie => movie.id === movieId);
   }
+
+  if (!details) {
+    Notiflix.Notify.failure('Movie not found. Please try again.');
+    return;
+  }
+  renderTemplate(movieDetailsCard, details, movieDetails);
 }
 
 function openMovieModal(e) {

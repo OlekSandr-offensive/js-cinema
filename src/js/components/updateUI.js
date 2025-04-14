@@ -21,6 +21,15 @@ export function updateModalUI(movieId) {
   const { UiQueueBtn, UiWatchedBtn, itemSignIn, btnWatched, btnQueue } =
     getRefs();
 
+  if (!UiWatchedBtn || !UiQueueBtn || !itemSignIn) {
+    console.warn('❌ One or more items not found!', {
+      UiWatchedBtn,
+      UiQueueBtn,
+      itemSignIn,
+    });
+    return;
+  }
+
   UiWatchedBtn.classList.add('hidden');
   UiQueueBtn.classList.add('hidden');
   itemSignIn.classList.add('hidden');

@@ -14,9 +14,8 @@
   "license": "ISC",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/index.html",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "build": "parcel build src/index.html --public-url /js-cinema/",
+    "deploy": "npm run build && node copy404.js && git add . && git commit -m 'Deploy to GitHub Pages' && git push origin main"
   },
   "dependencies": {
     "axios": "^1.7.9",
