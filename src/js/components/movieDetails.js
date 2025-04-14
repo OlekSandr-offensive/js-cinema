@@ -31,7 +31,6 @@ function getPopularMoviesDetails(movieId) {
 
   if (window.location.pathname.includes('/home')) {
     details = state.movies.find(movie => movie.id === movieId);
-    console.log(details);
   } else if (window.location.pathname.includes('/library/watched')) {
     details = state.libraryMovies[type].find(movie => movie.id === movieId);
   } else if (window.location.pathname.includes('/library/queue')) {
