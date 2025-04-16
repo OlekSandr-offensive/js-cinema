@@ -4,9 +4,9 @@ export function getUIContext() {
   const isAuth = state.isAuthenticated;
 
   if (!isAuth) return 'guest';
-  if (path === 'home') return 'home';
-  if (path.includes('library/watched')) return 'library-watched';
-  if (path.includes('library/queue')) return 'library-queue';
+  if (path.includes('/home')) return 'home';
+  if (path.includes('/library/watched')) return 'library-watched';
+  if (path.includes('/library/queue')) return 'library-queue';
 
   return 'unknown';
 }
