@@ -12,3 +12,9 @@ import './js/views/homeView';
 import './js/views/myLibraryView';
 
 import './js/app';
+
+const redirectPath = sessionStorage.getItem('redirectAfterLoad');
+if (redirectPath) {
+  sessionStorage.removeItem('redirectAfterLoad');
+  history.replaceState(null, '', redirectPath);
+}

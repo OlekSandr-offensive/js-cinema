@@ -34,6 +34,17 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <script>
+      const fullPath = location.pathname + location.search + location.hash;
+
+      if (
+        !location.pathname.startsWith('/js-cinema/') ||
+        location.pathname === '/js-cinema/404.html'
+      ) {
+        sessionStorage.setItem('redirectAfterLoad', fullPath);
+        location.replace('/js-cinema/');
+      }
+    </script>
   </head>
   <body>
     <include src="./partials/spinner.html"></include>
