@@ -14,7 +14,7 @@
   "license": "ISC",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/index.html --public-url /js-cinema/",
+    "build": "parcel build src/index.html --public-url /film-library/",
     "deploy": "npm run build && node copy404.js && git add . && git commit -m 'Deploy to GitHub Pages' && git push origin main"
   },
   "dependencies": {

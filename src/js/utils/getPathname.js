@@ -1,5 +1,5 @@
 export function getPathname() {
-  const { pathname } = window.location;
+  const { pathname } = location;
 
   if (pathname.includes('watched')) {
     return 'watched';

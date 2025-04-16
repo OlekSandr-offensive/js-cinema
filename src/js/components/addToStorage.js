@@ -25,7 +25,7 @@ export function setupListenersModalBtn(movieId) {
 
 async function addToWatchedCollection(movieId) {
   const { listenerCard } = getRefs();
-  if (window.location.pathname.includes('/home')) {
+  if (location.pathname.includes('home')) {
     await addToStorage(movieId, 'watched');
   } else {
     modal.close();
@@ -35,7 +35,7 @@ async function addToWatchedCollection(movieId) {
 
 async function addToQueueCollection(movieId) {
   const { listenerCard } = getRefs();
-  if (window.location.pathname.includes('/home')) {
+  if (location.pathname.includes('home')) {
     await addToStorage(movieId, 'queue');
   } else {
     modal.close();

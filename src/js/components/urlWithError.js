@@ -18,14 +18,14 @@ const { movieDetails, closeModalBtn, gallery } = getRefs();
 
 export function urlWithError() {
   gallery.innerHTML = '';
-  const errorPath = window.location.pathname;
+  const errorPath = location.pathname;
   renderTemplate(urlWithErrorTpl, { errorPath }, movieDetails);
   if (closeModalBtn) closeModalBtn.remove();
   modal.open();
 }
 
 export function redirectError() {
-  navigateTo('/home');
+  navigateTo('home');
   modal.close();
   homeView();
 }

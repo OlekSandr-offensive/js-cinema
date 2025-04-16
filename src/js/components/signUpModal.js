@@ -18,7 +18,7 @@ const modal = new Modal({
     renderSignUpModal();
   },
   onClose: () => {
-    navigateTo('/home');
+    navigateTo('home');
   },
 });
 

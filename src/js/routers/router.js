@@ -7,6 +7,9 @@ import {
 } from '../components';
 import { privateRoute } from './privateRoute.js';
 
+const base = document.querySelector('base');
+const BASE_URL = base ? new URL(base.href).pathname.replace(/\/$/, '') : '';
+
 const routes = {
   '/': () => homeView(),
   '/home': () => homeView(),
@@ -42,7 +45,7 @@ export function initRouter() {
 function routListener(event) {
   const link = event.target.closest('a[href]');
 
-  if (!link || !link.href.startsWith(window.location.origin)) return;
+  if (!link || !link.href.startsWith(location.origin + `${BASE_URL}`)) return;
 
   const route = link.getAttribute('href');
 
@@ -51,13 +54,13 @@ function routListener(event) {
 }
 
 export function navigateTo(path) {
-  if (window.location.pathname === path) return;
+  if (location.pathname === path) return;
   history.pushState({ route: path }, '', path);
   handleRouteChange();
 }
 
 export function handleRouteChange() {
-  const path = window.location.pathname;
+  const path = location.pathname.replace(BASE_URL, '') || '/';
   const route = routes[path];
 
   if (route) {

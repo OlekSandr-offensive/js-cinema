@@ -18,7 +18,6 @@ export async function deleteMovieById(e) {
 }
 
 export async function deleteMovie(movieId, container, type) {
-  // container = document.querySelector(`[data-id="${movieId}"]`);
   if (!container) return;
 
   container.classList.add('fade-out');

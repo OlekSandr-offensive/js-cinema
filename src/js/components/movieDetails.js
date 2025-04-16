@@ -29,11 +29,11 @@ function getPopularMoviesDetails(movieId) {
 
   let details;
 
-  if (window.location.pathname.includes('/home')) {
+  if (location.pathname.includes('home')) {
     details = state.movies.find(movie => movie.id === movieId);
-  } else if (window.location.pathname.includes('/library/watched')) {
+  } else if (location.pathname.includes('library/watched')) {
     details = state.libraryMovies[type].find(movie => movie.id === movieId);
-  } else if (window.location.pathname.includes('/library/queue')) {
+  } else if (location.pathname.includes('library/queue')) {
     details = state.libraryMovies[type].find(movie => movie.id === movieId);
   }
 

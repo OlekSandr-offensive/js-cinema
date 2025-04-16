@@ -24,7 +24,7 @@ export async function submitSignUp(e) {
   try {
     await registerUser(email, password);
     Notiflix.Notify.success('Registration successful!');
-    navigateTo('/home');
+    navigateTo('home');
     modal.close();
   } catch (error) {
     Notiflix.Notify.failure(`Error: ${error.message}`);
@@ -40,7 +40,7 @@ export async function submitLogIn(e) {
   try {
     await loginUser(email, password);
     Notiflix.Notify.success('Login successful!');
-    navigateTo('/home');
+    navigateTo('home');
     modal.close();
   } catch (error) {
     if (error.code === 'auth/invalid-email') {
@@ -62,7 +62,7 @@ export async function submitLogOut() {
   try {
     await logoutUser();
     Notiflix.Notify.success('Exit successful!');
-    navigateTo('/home');
+    navigateTo('home');
   } catch (error) {
     Notiflix.Notify.failure(`Error: ${error.message}`);
   }
@@ -72,7 +72,7 @@ export async function submitSignInWithGoogle() {
   try {
     await signInWithGoogle();
     Notiflix.Notify.success('Registration successful!');
-    navigateTo('/home');
+    navigateTo('home');
     modal.close();
   } catch (error) {
     Notiflix.Notify.failure(`Error: ${error.message}`);

@@ -16,7 +16,7 @@ const modal = new Modal({
     renderAuthModal();
   },
   onClose: () => {
-    navigateTo('/home');
+    navigateTo('home');
   },
 });
 
