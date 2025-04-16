@@ -11,7 +11,6 @@ const base = document.querySelector('base');
 const BASE_URL = base ? new URL(base.href).pathname.replace(/\/$/, '') : '';
 
 const routes = {
-  '/': () => homeView(),
   '/home': () => homeView(),
   '/login': () => {
     openAuthModal();
@@ -62,6 +61,11 @@ export function navigateTo(path) {
 export function handleRouteChange() {
   const path = location.pathname.replace(BASE_URL, '') || '/';
   const route = routes[path];
+
+  if (path === '/') {
+    navigateTo('home');
+    return;
+  }
 
   if (route) {
     route();
