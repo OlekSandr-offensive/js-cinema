@@ -1,9 +1,3 @@
-const redirectPath = sessionStorage.getItem('redirectAfterLoad');
-if (redirectPath) {
-  sessionStorage.removeItem('redirectAfterLoad');
-  history.replaceState(null, '', redirectPath);
-}
-
 import './sass/main.scss';
 
 import './js/components/theme';
